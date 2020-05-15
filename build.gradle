@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.72'
+}
+
+group 'pl.natusiek.guild'
+version '1.0'
+
+repositories {
+    mavenCentral()
+
+    maven { url = "https://repo.aikar.co/content/groups/aikar/" }
+    maven { url = 'https://repo.ashcon.app/nexus/content/repositories/snapshots' }
+}
+
+dependencies {
+    compile "co.aikar:acf-paper:0.5.0-SNAPSHOT"
+    compile group: 'org.mongodb', name: 'mongodb-driver', version: '3.12.2'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    compileOnly 'app.ashcon:sportpaper:1.8.8-R0.1-SNAPSHOT'
+    compileOnly 'app.ashcon:sportpaper-api:1.8.8-R0.1-SNAPSHOT'
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
