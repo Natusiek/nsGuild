@@ -1,5 +1,6 @@
 package pl.natusiek.mc.guild.structure.guild
 
+import pl.natusiek.mc.common.extension.fixColor
 import java.io.Serializable
 import java.util.concurrent.TimeUnit
 

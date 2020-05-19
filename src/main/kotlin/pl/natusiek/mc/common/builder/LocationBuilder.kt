@@ -19,12 +19,12 @@ data class LocationBuilder(
     constructor(world: String, x: Double, y: Double, z: Double) : this(world, x, y, z, 0.0f, 0.0f)
 
 
-    fun toBukkitLocation(): Location {
-        return Location(toBukkitWorld(), this.x, this.y, this.z, this.yaw, this.pitch)
-    }
+    fun toBukkitLocation(): Location =
+         Location(toBukkitWorld(), this.x, this.y, this.z, this.yaw, this.pitch)
 
-    fun toBukkitWorld(): World {
-        return Bukkit.getServer().getWorld(this.world)
-    }
+
+    fun toBukkitWorld(): World =
+            Bukkit.getServer().getWorld(this.world)
+
 
 }

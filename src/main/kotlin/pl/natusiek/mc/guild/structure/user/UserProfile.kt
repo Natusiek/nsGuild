@@ -5,8 +5,7 @@ import java.io.Serializable
 import java.util.*
 
 data class UserProfile(
-    val userId: UUID,
-    var userName: String
+    val userId: UUID
 ) : DatabaseEntity(), Serializable {
 
     var guildId: UUID? = null

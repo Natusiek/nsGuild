@@ -6,7 +6,8 @@ data class GuildRegion(
         private val guild: Guild
 ) {
 
-    val location: Location? = null
-    val size: Int = 40
+    val homeLocation: Location? = null
+    val guildLocation: Location? = null
+    val regionSize: Int = 40
 
 }
