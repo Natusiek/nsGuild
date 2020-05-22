@@ -67,10 +67,11 @@ class Database(
                     .find(Document("id", id))
                     .first()
 
-                if (document != null)
+                if (document != null) {
                     listener.invoke(ConfigLoader.GSON.fromJson(ConfigLoader.GSON.toJson(document), T::class.java))
-                else
+                } else {
                     listener.invoke(null)
+                }
             } catch (ex: Throwable) {
                 listener.invoke(null)
             }

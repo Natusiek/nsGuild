@@ -7,9 +7,10 @@ class GuildMessage {
     val uHaveGuild = "&4Przykro nam albo i nie, ale już posiadasz gildiee :}"
     val uNotHaveGuild = "&4Blad: &cNie posiadasz gildi."
     val uNotLeader = "&4Blad: &cNie jestes liderem."
+    val uLeader = "&4Blad: &cJestes liderem nie możesz tego zrobić :)"
     val targetIsOffline = "&4Blad: &cGracz nie jest online."
     val targetHaveGuild = "&4Blad: &cPodany gracz posiada juz gildie."
-
+    val noSuchGuild = "&4Blad: &cNie ma takiej gildii"
 
     val create = Create()
     class Create {
@@ -29,6 +30,31 @@ class GuildMessage {
     class Invite {
         val senderMessage = arrayOf("", "&eWysłałeś graczowi: &f%target%, &ezaproszenie do gildii.", "")
         val targetMessage = arrayOf("", " &8* &eOtrzymales zaproszenie do gildi: &f%guild% &eprzez &f%sender%", "    &8>> &fAby dołączyć do gildii wpisz: &e/g dolacz %guild%", "")
+    }
+
+    val join = Join()
+    class Join {
+        val uNoHaveInvitation = "&4Blad: &cNie masz zaproszenia do gildii."
+        val noHaveItem = "&4Blad: &cNie masz itemow do dolaczenia"
+    }
+
+    val kick = Kick()
+    class Kick {
+        val targetIsNotUGuild = "&4Blad: &cGracz nie jest w twojej gildii."
+
+        val broadcastMessage = " &8* &eGracz %target% zostal wyrzucony z gildii &8(&f%guild%&8) przez %sender%"
+    }
+
+    val leave = Leave()
+    class Leave {
+        val broadcastMessage = " &8* &eGracz %target% opuscil gildie &8(&f%guild%&8)"
+    }
+
+    val enlarge = Enlarge()
+    class Enlarge {
+        val maxRegionReached = "&4Blad: &cOsiągnieto już maksymalny poziom regionu"
+        val expanded = "&aGratulacje! Powiekszyles teren o 10"
+        val noHaveItem = "&4Blad: &cNie posiadasz itemow."
     }
 
 }

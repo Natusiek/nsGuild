@@ -1,6 +1,7 @@
 package pl.natusiek.mc.guild.config
 
 import org.bukkit.Material
+import pl.natusiek.mc.common.builder.ItemBuilder
 import pl.natusiek.mc.common.builder.LocationBuilder
 import pl.natusiek.mc.guild.structure.guild.GuildItem
 
@@ -31,6 +32,38 @@ class GuildConfig {
         val minLengthInTag = 2
         val maxLengthInTag = 4
         val maxLengthInName = 24
+        val customYLocation = true
+        val yLocation = 40.0
+    }
+
+    val join = Join()
+    class Join {
+        val converterByMember = true
+        val deleteJoinItem = true
+        val itemToJoin =
+                GuildItem(
+                        Material.DIAMOND,
+                        "ITEM",
+                        10,
+                        0,
+                        arrayListOf()
+                )
+
+
+    }
+
+    val enlarge = Enlarge()
+    class Enlarge {
+        val itemToEnlarge = arrayListOf(
+                GuildItem(
+                        Material.DIAMOND,
+                        "ITEM",
+                        10,
+                        0,
+                        arrayListOf()
+                )
+        )
+        val addRegion = 10
     }
 
 }

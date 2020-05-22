@@ -20,7 +20,7 @@ class CreateGuildCommand(private val plugin: GuildPlugin) : GuildCommand(plugin)
 
     @Subcommand("zaloz")
     @Syntax("(tag) (name)")
-    fun onCreate(sender: Player, tag: String, name: String) {
+    fun onCommand(sender: Player, tag: String, name: String) {
         if (!this.config.createGuild)
             return sender.sendFixedMessage(this.message.create.guildIsNotEnable)
 
@@ -50,7 +50,7 @@ class CreateGuildCommand(private val plugin: GuildPlugin) : GuildCommand(plugin)
         if (!ItemHelper.hasItems(sender.inventory, itemsToCreate.map { it.toItem() }))
             return sender.sendFixedMessage(this.message.create.noHaveItemToCreate)
 
-        val senderLocation = sender.location
+        val senderLocation = sender.location.block.location
         if (LocationHelper.inLocation(this.config.spawnLocation.toBukkitLocation(), senderLocation, this.config.create.distanceFromSpawn))
             return sender.sendFixedMessage(this.message.create.uAreInSpawn)
 
@@ -60,12 +60,18 @@ class CreateGuildCommand(private val plugin: GuildPlugin) : GuildCommand(plugin)
         if (this.guildRepository.getGuildByDistance(senderLocation, this.config.create.maxRegion + this.config.create.distanceBetweenGuild) != null)
             return sender.sendFixedMessage(this.message.create.tooCloseGuild)
 
+        if (this.config.create.customYLocation)
+            senderLocation.y = this.plugin.guildConfig.create.yLocation
+
         var randomGuildId = UUID.randomUUID()
         while (this.guildRepository.getGuildById(randomGuildId) != null)
             randomGuildId = UUID.randomUUID()
 
         val guild = Guild(randomGuildId, tag, name, GuildMember(sender.uniqueId, sender.name))
-        this.plugin.server.pluginManager.callEvent(CreateGuildEvent(sender, guild))
+        this.plugin.server.pluginManager.callEvent(
+                CreateGuildEvent(sender, guild, senderLocation)
+        )
+        sender.teleport(senderLocation)
     }
 
 }

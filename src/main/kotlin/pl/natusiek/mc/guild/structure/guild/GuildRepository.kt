@@ -19,8 +19,10 @@ class GuildRepository(private val plugin: GuildPlugin) {
         }
     }
 
-    private fun getGuildBy(guild: (Guild) -> Boolean) = this.guilds.values.find(guild)
+    fun getGuilds() = this.guilds.values.asSequence()
 
+
+    private fun getGuildBy(guild: (Guild) -> Boolean) = this.guilds.values.find(guild)
 
     fun getGuildByTag(tag: String) = this.getGuildBy { it.tag == tag }
 
@@ -35,7 +37,5 @@ class GuildRepository(private val plugin: GuildPlugin) {
     fun getGuildByLocation(location: Location) = this.getGuildBy { getGuildByDistance(location, it.region.regionSize) != null }
 
     fun getGuildByDistance(location: Location, distance: Int) = this.getGuildBy { LocationHelper.inLocation(it.region.guildLocation!!, location, distance) }
-
-    fun getGuilds() = this.guilds.values.asSequence()
 
 }

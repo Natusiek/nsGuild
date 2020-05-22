@@ -8,18 +8,5 @@ import java.util.*
 
 class AddMemberGuildEvent(
         val target: Player,
-        val sender: Player,
         val guild: Guild
-): GuildEvent() {
-
-    override fun getHandlers() = getHandlerList()
-
-    companion object {
-        private val handlers = HandlerList()
-        @JvmStatic
-        fun getHandlerList(): HandlerList {
-            return handlers
-        }
-    }
-
-}
+): GuildEvent()

@@ -10,7 +10,11 @@ data class Guild(
     val tag: String,
     val name: String,
     val leader: GuildMember
-) : DatabaseEntity(), Serializable {
+) : DatabaseEntity(
+        guildId.toString(),
+        "guildId",
+        "guilds"
+), Serializable {
 
     val statistics = GuildStatistics(this)
     val region = GuildRegion(this)
@@ -21,12 +25,11 @@ data class Guild(
     var memberInvites: MutableSet<UUID> = hashSetOf()
     var alliesInvites: MutableSet<UUID> = hashSetOf()
 
-    override val id: String get() = this.guildId.toString()
-    override val key: String get() = "guildId"
-    override val collection: String get() = "guilds"
 
-    fun isLeaderByName(name: String) = this.leader.memberName == name
+    fun isLeader(name: String) = this.leader.memberName == name
+    fun isLeader(id: UUID) = this.leader.memberId == id
 
-    fun isLeaderById(id: UUID) = this.leader.memberId == id
+    fun getMember(name: String) = this.members.singleOrNull { it.memberName == name }
+    fun getMember(id: UUID) = this.members.singleOrNull { it.memberId == id }
 
 }

@@ -3,11 +3,11 @@ package pl.natusiek.mc.database.system
 import pl.natusiek.mc.database.DatabaseAPI
 import java.io.Serializable
 
-abstract class DatabaseEntity : Serializable {
-
-    abstract val id: String
-    abstract val key: String
-    abstract val collection: String
+abstract class DatabaseEntity(
+        val id: String,
+        val key: String,
+        val collection: String
+) : Serializable {
 
     fun insertEntity() =
         DatabaseAPI.database.insertEntity(this)
