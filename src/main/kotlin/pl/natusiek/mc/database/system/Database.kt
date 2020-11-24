@@ -1,11 +1,12 @@
 package pl.natusiek.mc.database.system
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.mongodb.MongoClient
 import com.mongodb.MongoClientURI
 import com.mongodb.client.MongoDatabase
 import org.bson.Document
-import pl.natusiek.mc.common.configuration.ConfigLoader
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -19,6 +20,11 @@ class Database(
 
     val executor: ExecutorService = Executors.newSingleThreadExecutor(ThreadFactoryBuilder().setNameFormat("Database Executor").build())
 
+    val gson: Gson = GsonBuilder()
+        .setPrettyPrinting()
+        .disableHtmlEscaping()
+        .create()
+
     fun <T : DatabaseEntity> insertEntity(entity: T) {
         this.executor.execute {
             val collection = this.database.getCollection(entity.collection)
@@ -27,13 +33,13 @@ class Database(
                 this.database.createCollection(entity.collection)
             }
 
-            collection.insertOne(Document.parse(ConfigLoader.GSON.toJson(entity)))
+            collection.insertOne(Document.parse(this.gson.toJson(entity)))
         }
     }
 
     fun <T : DatabaseEntity> updateEntity(entity: T) {
         this.executor.execute {
-            this.database.getCollection(entity.collection).findOneAndReplace(Document(entity.key, entity.id), Document.parse(ConfigLoader.GSON.toJson(entity)))
+            this.database.getCollection(entity.collection).findOneAndReplace(Document(entity.key, entity.id), Document.parse(gson.toJson(entity)))
         }
     }
 
@@ -51,7 +57,7 @@ class Database(
                     .first()
 
                 if (document != null)
-                    listener.invoke(ConfigLoader.GSON.fromJson(ConfigLoader.GSON.toJson(document), T::class.java))
+                    listener.invoke(this.gson.fromJson(this.gson.toJson(document), T::class.java))
                 else
                     listener.invoke(null)
             } catch (ex: Throwable) {
@@ -68,7 +74,7 @@ class Database(
                     .first()
 
                 if (document != null) {
-                    listener.invoke(ConfigLoader.GSON.fromJson(ConfigLoader.GSON.toJson(document), T::class.java))
+                    listener.invoke(this.gson.fromJson(this.gson.toJson(document), T::class.java))
                 } else {
                     listener.invoke(null)
                 }
@@ -85,7 +91,7 @@ class Database(
                 this.database.getCollection(name)
                     .find()
                     .forEach {
-                        list.add(ConfigLoader.GSON.fromJson(ConfigLoader.GSON.toJson(it), T::class.java))
+                        list.add(this.gson.fromJson(this.gson.toJson(it), T::class.java))
                     }
 
                 listener(list)

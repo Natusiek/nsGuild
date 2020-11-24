@@ -1,9 +1,9 @@
 package pl.natusiek.mc.guild.task
 
 import org.bukkit.scheduler.BukkitRunnable
-import pl.natusiek.mc.GuildPlugin
+import pl.natusiek.mc.guild.GuildModule
 
-class RefreshGuildTask(private val plugin: GuildPlugin) : BukkitRunnable() {
+class RefreshGuildTask(private val plugin: GuildModule) : BukkitRunnable() {
 
     init {
         runTaskLaterAsynchronously(this.plugin, 540)

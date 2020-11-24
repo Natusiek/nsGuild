@@ -2,19 +2,33 @@ package pl.natusiek.mc.guild.listener
 
 import org.apache.commons.lang.StringUtils
 import org.bukkit.Bukkit
-import org.bukkit.Location
+import org.bukkit.Material
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import pl.natusiek.mc.GuildAPI
-import pl.natusiek.mc.GuildPlugin
+import org.bukkit.event.player.PlayerInteractEvent
+import pl.natusiek.mc.guild.GuildAPI
+import pl.natusiek.mc.guild.GuildModule
 import pl.natusiek.mc.common.extension.sendFixedMessage
-import pl.natusiek.mc.common.helper.SchematicHelper
 import pl.natusiek.mc.guild.event.default.*
-import java.io.File
-import java.io.IOException
 
-class GuildListener(private val plugin: GuildPlugin) : Listener {
+class GuildListener(private val plugin: GuildModule) : Listener {
 
+
+    @EventHandler
+    fun onClick(event: PlayerInteractEvent) {
+        val player = event.player
+
+        val item = event.item
+        if (item.type == Material.DIRT) {
+            if (player.name == "Konieczo") {
+                Bukkit.getOnlinePlayers().forEach {
+                    it.sendMessage("Jebać rikusia")
+                }
+            }
+        }
+
+    }
 
     @EventHandler
     fun onCreateGuild(event: CreateGuildEvent) {
@@ -107,7 +121,7 @@ class GuildListener(private val plugin: GuildPlugin) : Listener {
         val guild = event.guild
 
         sender.sendFixedMessage(this.plugin.guildMessage.enlarge.expanded)
-        
+
         guild.region.regionSize += this.plugin.guildConfig.enlarge.addRegion
         guild.updateEntity()
     }

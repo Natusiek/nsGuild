@@ -1,11 +1,13 @@
 package pl.natusiek.mc.guild.config
 
 import org.bukkit.Material
-import pl.natusiek.mc.common.builder.ItemBuilder
 import pl.natusiek.mc.common.builder.LocationBuilder
+import pl.natusiek.mc.common.configuration.Configuration
+import pl.natusiek.mc.common.configuration.ConfigurationAnnotation
 import pl.natusiek.mc.guild.structure.guild.GuildItem
 
-class GuildConfig {
+@ConfigurationAnnotation("guild", "config")
+class GuildConfig : Configuration {
 
     val itemsToCreate = ItemsToCreate()
     class ItemsToCreate {

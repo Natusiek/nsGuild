@@ -1,13 +1,13 @@
 package pl.natusiek.mc.guild.structure.guild
 
 import org.bukkit.Location
-import pl.natusiek.mc.GuildPlugin
+import pl.natusiek.mc.guild.GuildModule
 import pl.natusiek.mc.common.helper.LocationHelper
 import pl.natusiek.mc.database.DatabaseAPI
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
-class GuildRepository(private val plugin: GuildPlugin) {
+class GuildRepository(private val plugin: GuildModule) {
 
     private val guilds: MutableMap<UUID, Guild> = ConcurrentHashMap()
 

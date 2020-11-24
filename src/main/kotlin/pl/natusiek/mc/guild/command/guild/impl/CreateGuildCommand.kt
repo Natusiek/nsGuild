@@ -5,7 +5,7 @@ import co.aikar.commands.annotation.Subcommand
 import co.aikar.commands.annotation.Syntax
 import org.apache.commons.lang.StringUtils
 import org.bukkit.entity.Player
-import pl.natusiek.mc.GuildPlugin
+import pl.natusiek.mc.guild.GuildModule
 import pl.natusiek.mc.common.extension.sendFixedMessage
 import pl.natusiek.mc.common.helper.ItemHelper
 import pl.natusiek.mc.common.helper.LocationHelper
@@ -16,7 +16,7 @@ import pl.natusiek.mc.guild.structure.guild.GuildMember
 import java.util.*
 
 @CommandAlias("g|guild|gildia|klany|clan")
-class CreateGuildCommand(private val plugin: GuildPlugin) : GuildCommand(plugin) {
+class CreateGuildCommand(private val plugin: GuildModule) : GuildCommand(plugin) {
 
     @Subcommand("zaloz")
     @Syntax("(tag) (name)")

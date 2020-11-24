@@ -1,16 +1,15 @@
 package pl.natusiek.mc.guild.command.guild.impl
 
 import co.aikar.commands.annotation.*
-import com.sun.tools.javac.tree.TreeInfo.args
 import org.bukkit.entity.Player
-import pl.natusiek.mc.GuildPlugin
+import pl.natusiek.mc.guild.GuildModule
 import pl.natusiek.mc.common.extension.sendFixedMessage
 import pl.natusiek.mc.guild.command.guild.GuildCommand
 import pl.natusiek.mc.guild.event.default.RemoveMemberGuildEvent
 
 
 @CommandAlias("g|guild|gildia|klany|clan")
-class KickGuildCommand(private val plugin: GuildPlugin) : GuildCommand(plugin) {
+class KickGuildCommand(private val plugin: GuildModule) : GuildCommand(plugin) {
 
     @Subcommand("wyrzuc|kick")
     @Syntax("(nick)")

@@ -2,36 +2,39 @@ package pl.natusiek.mc.database
 
 import com.mongodb.MongoClientURI
 import org.bukkit.Bukkit
-import pl.natusiek.mc.GuildPlugin
-import pl.natusiek.mc.common.configuration.ConfigLoader
-import pl.natusiek.mc.common.plugin.Module
+import pl.natusiek.mc.common.configuration.ConfigurationService
+import pl.natusiek.mc.common.module.Module
+import pl.natusiek.mc.common.module.ModuleAnnotation
+import pl.natusiek.mc.common.builder.LoggerBuilder
 import pl.natusiek.mc.database.system.Database
 import pl.natusiek.mc.database.config.DatabaseConfig
 import java.lang.Exception
 
-class DatabaseModule(private val plugin: GuildPlugin) : Module {
+@ModuleAnnotation("ns-Database", "1.0")
+class DatabaseModule : Module<DatabaseConfig>() {
 
-    lateinit var databaseConfig: DatabaseConfig
     lateinit var database: Database
 
-    init {
-        start()
-    }
+    override lateinit var configuration: DatabaseConfig
+    override lateinit var logger: LoggerBuilder
 
-    override fun start() {
-        this.databaseConfig = ConfigLoader.load(this.plugin.dataFolder, DatabaseConfig::class, "database")
+    @ExperimentalStdlibApi
+    override fun onStart() {
+        this.configuration = ConfigurationService.load(this.plugin.dataFolder, this.configuration::class)!!
+        this.logger = LoggerBuilder("ns-Database")
 
         try {
-            this.database = Database(MongoClientURI(this.databaseConfig.url), this.databaseConfig.database)
+            this.database = Database(MongoClientURI(this.configuration.url), this.configuration.database)
         } catch (e: Exception) {
-            this.plugin.logger.warning("Can't connect to database...")
+            this.logger.error("Can't connect to database...")
             Bukkit.shutdown()
         }
 
         DatabaseAPI.database = this.database
     }
 
-    override fun stop() {
+    override fun onStop() {
+
     }
 
 }

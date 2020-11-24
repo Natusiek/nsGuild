@@ -1,11 +1,11 @@
 package pl.natusiek.mc.guild.structure.user
 
-import pl.natusiek.mc.GuildPlugin
+import pl.natusiek.mc.guild.GuildModule
 import pl.natusiek.mc.database.DatabaseAPI
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
-class UserRepository(private val plugin: GuildPlugin) {
+class UserRepository(private val plugin: GuildModule) {
 
     private val profiles: MutableMap<UUID, UserProfile> = ConcurrentHashMap()
 

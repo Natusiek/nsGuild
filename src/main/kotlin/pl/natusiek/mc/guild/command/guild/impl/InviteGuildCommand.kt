@@ -2,14 +2,13 @@ package pl.natusiek.mc.guild.command.guild.impl
 
 import co.aikar.commands.annotation.*
 import org.bukkit.entity.Player
-import pl.natusiek.mc.GuildPlugin
+import pl.natusiek.mc.guild.GuildModule
 import pl.natusiek.mc.common.extension.sendFixedMessage
 import pl.natusiek.mc.guild.command.guild.GuildCommand
 import pl.natusiek.mc.guild.event.default.AddMemberGuildEvent
-import pl.natusiek.mc.guild.event.default.CreateGuildEvent
 
 @CommandAlias("g|guild|gildia|klany|clan")
-class InviteGuildCommand(private val plugin: GuildPlugin) : GuildCommand(plugin) {
+class InviteGuildCommand(private val plugin: GuildModule) : GuildCommand(plugin) {
 
     @Subcommand("invite|zapros")
     @Syntax("(nick)")
